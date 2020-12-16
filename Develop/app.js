@@ -14,6 +14,128 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
+inquirer
+  .prompt([
+      {
+          type: 'input',
+          name: 'name',
+          message: "What is your manager's name?"
+      },
+
+      {
+          type: 'input',
+          name: 'id',
+          message: "What is your manager's id?"
+      },
+
+      {
+          type: 'input',
+          name: 'email',
+          message: "What is your manager's email?",
+      },
+
+      {
+          type: 'input',
+          name: 'officeNumber',
+          message: "What is your manager's office number?",          
+      },
+
+    //   {                       meant for team selection
+    //     type: 'list',
+    //     name: 'contributor',
+    //     message: 'Please enter if there are any contributors',
+    //     choices: ['one', 'two', 'none']
+    //   },     
+  ])
+  .then((data) => {
+      const managerFile = `${data.name.toLowerCase().split(' ').join('')}.json`;
+
+      fs.writeFile(managerFile, data, (err) => {
+          if(err) throw err;
+          console.log('file is saved')
+      });
+
+
+  });
+
+//   inquirer
+//    .prompt([
+//         {
+//             type: 'input',
+//             name: 'name',
+//             message: "What is your engineer's name?"
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'role',
+//             message: "What is your engineer's role?",
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'id',
+//             message: "What is your engineer's id?"
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'email',
+//             message: "What is your engineer's email?",
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'github',
+//             message: "What is your engineer's Github username?",          
+//         },
+
+//         //   {                       meant for team selection
+//     //     type: 'list',
+//     //     name: 'contributor',
+//     //     message: 'Please enter if there are any contributors',
+//     //     choices: ['one', 'two', 'none']
+//     //   },
+
+//    ]);
+
+
+//    inquirer
+//    .prompt([
+//         {
+//             type: 'input',
+//             name: 'name',
+//             message: "What is your intern's name?"
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'role',
+//             message: "What is your intern's role?",
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'id',
+//             message: "What is your intern's id?"
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'email',
+//             message: "What is your intern's email?",
+//         },
+
+//         {
+//             type: 'input',
+//             name: 'github',
+//             message: "What is your intern's school name?",          
+//         },
+
+//    ]);
+
+
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
