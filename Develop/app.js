@@ -14,7 +14,7 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-const ManagerQuest = [
+const managerQuest = [
     {
         type: 'input',
         name: 'name',
@@ -125,10 +125,15 @@ const internQuestion = [
 
 
 inquirer
-    .prompt([
+    .prompt(managerQuest).then(function managerChoice(answer) {
+        console.log(answer);
+        let mgTeamMemberChoice = answer.team;
 
+        if(mgTeamMemberChoice  ) {
+            console.log("it ran")
+        }
 
-    ])
+    })
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
