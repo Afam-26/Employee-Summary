@@ -7,9 +7,12 @@ class Employee {
         this.email = email;
     }
 
-
-
-    
+    getName() {}
+    getId() {}
+    getEmail() {}
+    getRole() {
+        return "Employee"
+    } 
 
 
 }

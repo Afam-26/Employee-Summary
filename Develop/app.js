@@ -116,7 +116,7 @@ const internQuestion = [
 
     {
         type: 'input',
-        name: 'github',
+        name: 'school',
         message: "What is your intern's school name?",          
     },
 
