@@ -46,8 +46,16 @@ const managerQuest = [
         choices: ['Engineer', 'Intern', "I don't want to add any more team members"]
     },     
 
-
 ];
+
+const roleChoices = [
+    {                      
+        type: 'list',
+        name: 'teamMember',
+        message: 'Which type of team member would you like to add?',
+        choices: ['Engineer', 'Intern', "I don't want to add any more team members"]
+    },
+]
 
 const engineerQuest = [
     {
@@ -89,7 +97,7 @@ const engineerQuest = [
 
 ];
 
-const internQuestion = [
+const internQuest = [
     {
         type: 'input',
         name: 'name',
@@ -123,15 +131,34 @@ const internQuestion = [
 
 ];
 
+let roles = [];
 
-inquirer
-    .prompt(managerQuest).then(function managerChoice(answer) {
+
+inquirer.prompt(managerQuest).then(function managerChoice(answer) {
         console.log(answer);
-        let mgTeamMemberChoice = answer.team;
+        
+        const manager = new Manager ();
+        manager.id = answer.id;
+        manager.name = answer.name;
 
-        if(mgTeamMemberChoice  ) {
-            console.log("it ran")
-        }
+
+        roles.push(manager)
+
+
+
+        if(answer.teamMember === "Engineer") {
+            console.log("it worked")
+            inquirer.prompt(engineerQuest).then(function engineerChoice(answer) {
+                console.log(answer)
+                
+            })
+        }else if(answer.teamMember === "Intern") {
+            console.log("it worked again")
+            inquirer.prompt(internQuest).then(function internChoice(answer) {
+                console.log(answer)
+            })
+        }else{
+            console.log("I don't want to add any more team members")}
 
     })
 

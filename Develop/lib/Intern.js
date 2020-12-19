@@ -14,5 +14,6 @@ class Intern extends Employee {
     }
 }
 
-const intern = new Intern();
-console.log(intern.getRole());
+
+
+module.exports = Intern;

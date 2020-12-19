@@ -14,6 +14,6 @@ class Engineer extends Employee {
 }
 
 
-const engineer = new Engineer();
-console.log(engineer.getRole());
+
+module.exports = Engineer;
 

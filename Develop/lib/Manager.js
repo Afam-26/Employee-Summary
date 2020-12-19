@@ -12,5 +12,6 @@ class Manager extends Employee {
     }
 }
 
-const manager = new Manager();
-console.log(manager.getRole());
+
+
+module.exports = Manager;
