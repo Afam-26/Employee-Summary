@@ -1,9 +1,12 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
+const Employee = require("./lib/Employee");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+
+const roles = [];
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
@@ -22,7 +25,7 @@ const managerQuest = [
     },
         
     {
-        type: 'input',
+        type: 'number',
         name: 'id',
         message: "What is your manager's id?"
     },
@@ -34,7 +37,7 @@ const managerQuest = [
     },
         
     {
-        type: 'input',
+        type: 'number',
         name: 'officeNumber',
         message: "What is your manager's office number?",          
     },
@@ -47,15 +50,6 @@ const managerQuest = [
     },     
 
 ];
-
-const roleChoices = [
-    {                      
-        type: 'list',
-        name: 'teamMember',
-        message: 'Which type of team member would you like to add?',
-        choices: ['Engineer', 'Intern', "I don't want to add any more team members"]
-    },
-]
 
 const engineerQuest = [
     {
@@ -71,7 +65,7 @@ const engineerQuest = [
     },
 
     {
-        type: 'input',
+        type: 'number',
         name: 'id',
         message: "What is your engineer's id?"
     },
@@ -92,7 +86,7 @@ const engineerQuest = [
         type: 'list',
         name: 'teamMember',
         message: 'Which type of team member would you like to add?',
-        choices: ['Intern', "I don't want to add any more team members"]
+        choices: ['Engineer','Intern', "I don't want to add any more team members"]
     },   
 
 ];
@@ -111,7 +105,7 @@ const internQuest = [
     },
 
     {
-        type: 'input',
+        type: 'number',
         name: 'id',
         message: "What is your intern's id?"
     },
@@ -128,39 +122,138 @@ const internQuest = [
         message: "What is your intern's school name?",          
     },
 
+    {                      
+        type: 'list',
+        name: 'teamMember',
+        message: 'Which type of team member would you like to add?',
+        choices: ['Engineer', 'Intern', "I don't want to add any more team members"]
+    }, 
 
 ];
 
-let roles = [];
+function managerInfo() {
+    inquirer
+    .prompt(managerQuest)
+    .then(function(answer) {
+        const manager = new Manager (answer.id, answer.name, answer.email, answer.officeNumber);    
+        roles.push(manager);
 
-
-inquirer.prompt(managerQuest).then(function managerChoice(answer) {
-        console.log(answer);
-        
-        const manager = new Manager ();
-        manager.id = answer.id;
-        manager.name = answer.name;
-
-
-        roles.push(manager)
-
-
-
-        if(answer.teamMember === "Engineer") {
-            console.log("it worked")
-            inquirer.prompt(engineerQuest).then(function engineerChoice(answer) {
-                console.log(answer)
-                
-            })
-        }else if(answer.teamMember === "Intern") {
-            console.log("it worked again")
-            inquirer.prompt(internQuest).then(function internChoice(answer) {
-                console.log(answer)
-            })
-        }else{
-            console.log("I don't want to add any more team members")}
-
+        if(answer.teamMember === 'Engineer') {
+            createEngineer();
+        }else if(answer.teamMember === 'Intern') {
+            createIntern();
+        }else(makeTeam());
     })
+}
+
+
+function createEngineer() {
+    inquirer
+    .prompt(engineerQuest)
+    .then(function(answer) {
+        const engineer = new Engineer (answer.name, answer.id, answer.email, answer.github);
+        roles.push(engineer);
+
+        if(answer.teamMember === 'Engineer') {
+            createEngineer();
+        }else if(answer.teamMember === 'Intern') {
+            createIntern();
+        }else(makeTeam());
+    })
+}
+
+function createIntern() {
+    inquirer
+    .prompt(internQuest)
+    .then(function(answer) {
+        const intern = new Intern (answer.name, answer.id, answer.email, answer.school);
+        roles.push(intern);
+
+        if(answer.teamMember === 'Engineer') {
+            createEngineer();
+        }else if(answer.teamMember === 'Intern') {
+            createIntern();
+        }else(makeTeam());
+    })
+}
+
+function makeTeam() {
+    const myTeam = render(roles);
+
+    fs.writeFile(outputPath, myTeam, "utf8", (err) => {
+        if (err) throw err;
+        console.log('File saved!');
+    });
+}
+
+managerInfo();
+
+// inquirer.prompt(managerQuest).then(function (answer) {
+//         console.log(answer);
+        
+//         const manager = new Manager (answer.id, answer.name, answer.email, answer.officeNumber);    
+//         roles.push(manager);
+        
+
+//         if(answer.teamMember === "Engineer") {
+//             console.log("it worked")
+//             inquirer.prompt(engineerQuest).then(function (answer) {
+//                 console.log(answer);
+
+//                 const engineer = new Engineer (answer.name, answer.id, answer.email, answer.github);
+//                 roles.push(engineer);
+
+//                 if(answer.teamMember === "Intern") {
+//                     console.log("it worked again")
+//                     inquirer.prompt(internQuest).then(function (answer) {
+//                         console.log(answer)
+
+//                         const intern = new Intern (answer.name, answer.id, answer.email, answer.school);
+//                         roles.push(intern);
+//                         return;
+//                     })
+//                 }else if(answer.teamMember === "Engineer") {
+//                     console.log('terminate')
+//                     inquirer.prompt(confirm).then(function(answer){
+//                         console.log(answer);
+
+
+//                     })
+//                     return;
+
+//                 }else{
+//                     console.log('Render');
+//                     // render();
+//                 }
+                
+//             })
+//         }else if(answer.teamMember === "Intern") {
+//             console.log("it worked again and again")
+//             inquirer.prompt(internQuest).then(function (answer) {
+//                 console.log(answer)
+
+//                 const intern = new Intern (answer.name, answer.id, answer.email, answer.school);
+//                 roles.push(intern);
+
+//                 if(answer.teamMember === 'Engineer') {
+//                     console.log("it still worked")
+
+//                     inquirer.prompt(engineerQuest).then(function(answer) {
+//                         console.log(answer);
+
+//                         const engineer = new Engineer (answer.name, answer.id, answer.email, answer.github);
+//                         roles.push(engineer);
+
+//                     })
+//                 }
+//             })
+//         }else{            
+//             console.log("I don't want to add any more team members")
+//             // render();
+            
+//             }
+
+//     })
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
