@@ -1,6 +1,6 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
-const Employee = require("./lib/Employee");
+// const Employee = require("./lib/Employee");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
@@ -146,6 +146,7 @@ function managerInfo() {
     })
 }
 
+managerInfo();
 
 function createEngineer() {
     inquirer
@@ -186,7 +187,7 @@ function makeTeam() {
     });
 }
 
-managerInfo();
+
 
 // inquirer.prompt(managerQuest).then(function (answer) {
 //         console.log(answer);
