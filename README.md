@@ -23,14 +23,22 @@ This is command-line application that takes in information about employees and g
 3. To run program: node app.js
 4. For unit test, run: npm run test
 
+## Screenshot
+
+![Front page](./Assets/screen.png)
+
+![vieo](./Assets/video.gif)
+
+[Click here for the video link](https://drive.google.com/file/d/1RcjjD1PbhnY3YUgCnWuKPwj4emH-zcXn/view?usp=sharing)
+
  
 ## Contacts Info
 
 Please reach out to me if you have any questions.
 
-Email: ${email}
+Email: afam262@gmail.com
 
-Github Username: ${github}
+Github Username: https://afam-26.github.io/
 
 [Github link](https://afam-26.github.io/ReadMe-Generator/) 
 

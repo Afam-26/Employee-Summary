@@ -1,6 +1,6 @@
+// Required constant variables 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
-// const Employee = require("./lib/Employee");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
@@ -14,8 +14,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+// Manager object questions
 
 const managerQuest = [
     {
@@ -50,6 +49,8 @@ const managerQuest = [
     },     
 
 ];
+
+// Engineer object questions
 
 const engineerQuest = [
     {
@@ -91,6 +92,8 @@ const engineerQuest = [
 
 ];
 
+// Intern object questions
+
 const internQuest = [
     {
         type: 'input',
@@ -131,6 +134,8 @@ const internQuest = [
 
 ];
 
+// Function prompting manager questions
+
 function managerInfo() {
     inquirer
     .prompt(managerQuest)
@@ -148,6 +153,8 @@ function managerInfo() {
 
 managerInfo();
 
+// Function prompting Engineer question
+
 function createEngineer() {
     inquirer
     .prompt(engineerQuest)
@@ -163,6 +170,8 @@ function createEngineer() {
     })
 }
 
+// Function prompting Intern question
+
 function createIntern() {
     inquirer
     .prompt(internQuest)
@@ -177,6 +186,8 @@ function createIntern() {
         }else(makeTeam());
     })
 }
+
+// Function for creating teams and rendering page
 
 function makeTeam() {
     const myTeam = render(roles);
