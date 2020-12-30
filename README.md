@@ -21,7 +21,7 @@ This is command-line application that takes in information about employees and g
 1. Clone the repo: https://github.com/Afam-26/ReadMe-Generator.git
 2. Install NPM packages: npm install or npm i inquirer
 3. To run program: node app.js
-4. For unit test, run: npm run test
+4. For unit test, run: npm run test.
 
 ## Screenshot
 
